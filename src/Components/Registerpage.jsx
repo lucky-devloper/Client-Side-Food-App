@@ -17,7 +17,7 @@ function Registerpage({ handlebtn }) {
     const createAccount = async () => {
         // console.log(username, userEmail,userPassword);
         try {
-            const response = await axios.post('http://localhost:3000/app/signup', {
+            const response = await axios.post('https://server-side-food-app.onrender.com/app/signup', {
                 username: username,
                 email: userEmail,
                 password: userPassword
@@ -37,7 +37,7 @@ function Registerpage({ handlebtn }) {
     const loginAccount = async () => {
         // console.log(loginEmail, loginpassword);
         try {
-            const response = await axios.get(`http://localhost:3000/app/signup/${loginEmail}/${loginpassword}`)
+            const response = await axios.get(`https://server-side-food-app.onrender.com/app/signup/${loginEmail}/${loginpassword}`)
             setuser(response.data)
             toast.success("Login Sucessfully")
             setloginEmail('')

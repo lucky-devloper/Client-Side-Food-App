@@ -19,8 +19,8 @@ function FoodProvider({ children }) {
     // fetchdata from server
     const fetchData = async () => {
         try {
-            const itemresponse = await axios.get('http://localhost:3000/app/item')
-            const response = await axios.get(' http://localhost:3000/app/food')
+            const itemresponse = await axios.get('https://server-side-food-app.onrender.com/app/item')
+            const response = await axios.get('https://server-side-food-app.onrender.com/app/food')
             const data = response.data
             const item = itemresponse.data
             if (Search !== '') {
@@ -74,19 +74,19 @@ function FoodProvider({ children }) {
             const findSelectedItem = foodItem.find((item) => item._id === productInfo.product_id)
             const newitem = { ...findSelectedItem, quantity: productInfo.quantity }
 
-            const response = await axios.get(`http://localhost:3000/app/cart/${user_id}`)
+            const response = await axios.get(`https://server-side-food-app.onrender.com/app/cart/${user_id}`)
             console.log(response);
 
             const allDbcartitem = response.data
             const alreadyhaveitem = allDbcartitem.find((item) => item.product_id === productInfo.product_id)
             if (alreadyhaveitem) {
                 const itemid = alreadyhaveitem._id
-                const response = await axios.put(`http://localhost:3000/app/cart/${itemid}`, {
+                const response = await axios.put(`https://server-side-food-app.onrender.com/app/cart/${itemid}`, {
                     quantity: productInfo.quantity
                 })
                 // console.log("update quantity response : ", response);
             } else {
-                const response = await axios.post('http://localhost:3000/app/cart', {
+                const response = await axios.post('https://server-side-food-app.onrender.com/app/cart', {
                     user_id: productInfo.user_id,
                     product_id: newitem._id,
                     title: newitem.title,
@@ -108,7 +108,7 @@ function FoodProvider({ children }) {
         if (user) {
             cartitem.forEach(async (item) => {
                 try {
-                    await axios.post('http://localhost:3000/app/cart', {
+                    await axios.post('https://server-side-food-app.onrender.com/app/cart', {
                         user_id: user._id,
                         product_id: item._id,
                         title: item.title,
@@ -128,7 +128,7 @@ function FoodProvider({ children }) {
     const fetchcartitem = async (user) => {
         const user_id = user._id
         try {
-            const response = await axios.get(`http://localhost:3000/app/cart/${user_id}`)
+            const response = await axios.get(`https://server-side-food-app.onrender.com/app/cart/${user_id}`)
             const item = response.data
             setDbcartItem(item)
         } catch (error) {
@@ -146,7 +146,7 @@ function FoodProvider({ children }) {
 
     const removedatafromcart = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:3000/app/cart/${id}`)
+            const response = await axios.delete(`https://server-side-food-app.onrender.com/app/cart/${id}`)
             if (response || user) {
                 fetchcartitem(user)
                 toast.success('Item Delete Sucessfully')
@@ -173,7 +173,7 @@ function FoodProvider({ children }) {
     const saveAddress = async (useraddress) => {
         // console.log(useraddress);
         try {
-            const response = await axios.post('http://localhost:3000/app/address', {
+            const response = await axios.post('https://server-side-food-app.onrender.com/app/address', {
                 user_id: useraddress.user_id,
                 fullname: useraddress.Fullname,
                 street: useraddress.street,
@@ -197,7 +197,7 @@ function FoodProvider({ children }) {
     // fetch address whose user are login and show in address tab
     const fetchSaveAddress = async (user_id) => {
         try {
-            const response = await axios.get(`http://localhost:3000/app/address/${user_id}`)
+            const response = await axios.get(`https://server-side-food-app.onrender.com/app/address/${user_id}`)
             // console.log(response);
             setuseraddress(response.data)
         } catch (error) {
